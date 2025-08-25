@@ -1,13 +1,14 @@
 'use client'
 
+import { use } from 'react'
 import { notFound } from 'next/navigation'
 import Layout from '@/components/Layout'
 import FullscreenTest from '@/components/tests/FullscreenTest'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 const testComponents: Record<string, React.ComponentType> = {
@@ -15,7 +16,8 @@ const testComponents: Record<string, React.ComponentType> = {
 }
 
 export default function ApiTestPage({ params }: PageProps) {
-  const TestComponent = testComponents[params.slug]
+  const { slug } = use(params)
+  const TestComponent = testComponents[slug]
 
   if (!TestComponent) {
     notFound()
