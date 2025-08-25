@@ -37,19 +37,6 @@ export default function FullscreenTest() {
       const element = document.fullscreenElement
       setIsFullscreen(!!element)
       setFullscreenElement(element ? element.tagName : null)
-      
-      // Force a re-render to ensure styles are properly applied/removed
-      if (!element && elementRef.current) {
-        // Reset any inline styles that might have been applied
-        elementRef.current.style.cssText = ''
-        elementRef.current.classList.remove('fullscreen-active')
-        
-        // Force layout recalculation
-        elementRef.current.offsetHeight
-        
-        // Ensure the element has the correct base classes
-        elementRef.current.className = 'fullscreen-test-element p-4 bg-gradient-to-r from-line-blue to-line-green text-white rounded-lg'
-      }
     }
 
     const handleFullscreenError = (e: Event) => {
@@ -74,27 +61,6 @@ export default function FullscreenTest() {
     }
   }, [])
 
-  // Additional effect to watch for fullscreen state changes
-  useEffect(() => {
-    if (!isFullscreen && elementRef.current) {
-      // Ensure element returns to normal size when fullscreen is exited
-      const element = elementRef.current
-      
-      // Remove any potential fullscreen styling
-      element.style.width = ''
-      element.style.height = ''
-      element.style.maxWidth = ''
-      element.style.maxHeight = ''
-      element.style.position = ''
-      element.style.top = ''
-      element.style.left = ''
-      element.style.transform = ''
-      element.style.zIndex = ''
-      
-      // Force a reflow
-      element.offsetHeight
-    }
-  }, [isFullscreen])
 
   const testCases: TestCase[] = [
     {
@@ -209,8 +175,6 @@ export default function FullscreenTest() {
       if (document.fullscreenElement) {
         await document.exitFullscreen()
       } else if (elementRef.current) {
-        // Add a class to track fullscreen state
-        elementRef.current.classList.add('fullscreen-active')
         await elementRef.current.requestFullscreen()
       }
     } catch (error) {
