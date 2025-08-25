@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Optimize for mobile touch interactions */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+
+  /* Prevent text selection on mobile */
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Allow text selection for specific elements */
+  input,
+  textarea,
+  .selectable {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+
+  /* Smooth scrolling for iOS */
+  .scroll-container {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent zoom on input focus (iOS) */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  /* Basic fullscreen styles - minimal interference */
+  .fullscreen-test-element {
+    transition: all 0.3s ease;
+  }
+
+  /* LINE Mini App specific styles */
+  @media (max-width: 640px) {
+    html {
+      font-size: 14px;
+    }
+
+    button,
+    a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+}
