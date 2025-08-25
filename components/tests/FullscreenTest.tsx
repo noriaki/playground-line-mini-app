@@ -14,6 +14,7 @@ export default function FullscreenTest() {
   const [fullscreenEnabled, setFullscreenEnabled] = useState<boolean>(false)
   const [isMounted, setIsMounted] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const divRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setIsMounted(true)
@@ -140,6 +141,21 @@ export default function FullscreenTest() {
       },
       expectedBehavior: 'Video element enters fullscreen mode',
     },
+    {
+      name: 'DIV Element Fullscreen',
+      description: 'Request fullscreen for a DIV element',
+      execute: async () => {
+        if (!divRef.current) {
+          throw new Error('DIV element not available')
+        }
+        if (!document.fullscreenEnabled) {
+          throw new Error('Fullscreen is not supported or not allowed')
+        }
+        await divRef.current.requestFullscreen()
+        return { success: true, element: 'div' }
+      },
+      expectedBehavior: 'DIV element enters fullscreen mode with exit button visible',
+    },
   ]
 
   const handleQuickFullscreen = async () => {
@@ -220,6 +236,37 @@ export default function FullscreenTest() {
             <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+
+          <div
+            ref={divRef}
+            className="w-full h-48 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-semibold text-lg cursor-pointer relative"
+            onClick={async () => {
+              try {
+                if (divRef.current && document.fullscreenEnabled) {
+                  await divRef.current.requestFullscreen()
+                }
+              } catch (error) {
+                console.error('DIV fullscreen failed:', error)
+              }
+            }}
+          >
+            Click to Fullscreen This DIV
+            {isFullscreen && document.fullscreenElement === divRef.current && (
+              <button
+                className="absolute top-4 right-4 bg-black bg-opacity-50 hover:bg-opacity-70 text-white px-4 py-2 rounded-lg font-medium transition-all"
+                onClick={async (e) => {
+                  e.stopPropagation()
+                  try {
+                    await document.exitFullscreen()
+                  } catch (error) {
+                    console.error('Exit fullscreen failed:', error)
+                  }
+                }}
+              >
+                Exit Fullscreen
+              </button>
+            )}
+          </div>
         </div>
       </Card>
 
