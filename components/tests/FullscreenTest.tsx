@@ -13,7 +13,6 @@ export default function FullscreenTest() {
   const [lastResult, setLastResult] = useState<TestResult | null>(null)
   const [fullscreenEnabled, setFullscreenEnabled] = useState<boolean>(false)
   const [isMounted, setIsMounted] = useState(false)
-  const elementRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -37,21 +36,6 @@ export default function FullscreenTest() {
       const element = document.fullscreenElement
       setIsFullscreen(!!element)
       setFullscreenElement(element ? element.tagName : null)
-      
-      // フルスクリーン解除時に要素のスタイルをリセット
-      if (!element && elementRef.current) {
-        // 一時的に要素を非表示にしてからリセット
-        const el = elementRef.current
-        el.style.display = 'none'
-        
-        // 次のフレームで元に戻す
-        requestAnimationFrame(() => {
-          el.style.cssText = ''
-          el.style.display = ''
-          // 強制的にレイアウトを再計算
-          el.offsetHeight
-        })
-      }
     }
 
     const handleFullscreenError = (e: Event) => {
@@ -73,11 +57,6 @@ export default function FullscreenTest() {
     return () => {
       document.removeEventListener('fullscreenchange', handleFullscreenChange)
       document.removeEventListener('fullscreenerror', handleFullscreenError)
-      
-      // クリーンアップ時に要素のスタイルをリセット
-      if (elementRef.current) {
-        elementRef.current.style.cssText = ''
-      }
     }
   }, [])
 
@@ -108,21 +87,6 @@ export default function FullscreenTest() {
         return { success: true, element: 'document' }
       },
       expectedBehavior: 'Document enters fullscreen mode',
-    },
-    {
-      name: 'Request Fullscreen (Specific Element)',
-      description: 'Request fullscreen mode for a specific element',
-      execute: async () => {
-        if (!elementRef.current) {
-          throw new Error('Test element not available')
-        }
-        if (!document.fullscreenEnabled) {
-          throw new Error('Fullscreen is not supported or not allowed')
-        }
-        await elementRef.current.requestFullscreen()
-        return { success: true, element: 'div' }
-      },
-      expectedBehavior: 'Specific element enters fullscreen mode',
     },
     {
       name: 'Request Fullscreen with Options',
@@ -190,26 +154,6 @@ export default function FullscreenTest() {
     }
   }
 
-  const handleElementFullscreen = async () => {
-    try {
-      if (document.fullscreenElement) {
-        await document.exitFullscreen()
-      } else if (elementRef.current) {
-        await elementRef.current.requestFullscreen()
-      }
-    } catch (error) {
-      console.error('Element fullscreen failed:', error)
-    }
-  }
-
-  const resetElementStyle = () => {
-    if (elementRef.current) {
-      const el = elementRef.current
-      el.style.cssText = ''
-      // 強制的にレイアウトを再計算
-      el.offsetHeight
-    }
-  }
 
   return (
     <div className="space-y-6">
@@ -260,32 +204,12 @@ export default function FullscreenTest() {
 
       <Card title="Quick Actions">
         <div className="space-y-4">
-          <div className="space-y-2">
-            <div className="flex gap-2">
-              <Button onClick={handleQuickFullscreen} size="sm">
-                {isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen (Document)'}
-              </Button>
-              <Button onClick={handleElementFullscreen} size="sm" variant="secondary">
-                {isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen (Element)'}
-              </Button>
-            </div>
-            <div>
-              <Button onClick={resetElementStyle} size="sm" variant="danger">
-                Reset Element Style
-              </Button>
-            </div>
+          <div>
+            <Button onClick={handleQuickFullscreen} size="sm">
+              {isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen (Document)'}
+            </Button>
           </div>
 
-          <div
-            ref={elementRef}
-            className="fullscreen-test-element p-4 bg-gradient-to-r from-line-blue to-line-green text-white rounded-lg"
-          >
-            <p className="font-semibold">Test Element</p>
-            <p className="text-sm">This element can be made fullscreen</p>
-            {isFullscreen && fullscreenElement === 'DIV' && (
-              <p className="text-sm mt-2">Press ESC to exit fullscreen</p>
-            )}
-          </div>
 
           <video
             ref={videoRef}
