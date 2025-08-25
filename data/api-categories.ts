@@ -1,0 +1,151 @@
+import { ApiCategory } from '@/types'
+
+export const apiCategories: ApiCategory[] = [
+  {
+    id: 'storage',
+    name: 'Storage APIs',
+    description: 'Test local storage, session storage, and other storage APIs',
+    apiTests: [
+      {
+        id: 'localstorage',
+        name: 'LocalStorage',
+        description: 'Test localStorage functionality',
+        category: 'storage',
+        tests: [],
+      },
+      {
+        id: 'sessionstorage',
+        name: 'SessionStorage',
+        description: 'Test sessionStorage functionality',
+        category: 'storage',
+        tests: [],
+      },
+      {
+        id: 'indexeddb',
+        name: 'IndexedDB',
+        description: 'Test IndexedDB functionality',
+        category: 'storage',
+        tests: [],
+      },
+    ],
+  },
+  {
+    id: 'device',
+    name: 'Device APIs',
+    description: 'Test device-specific APIs like geolocation and orientation',
+    apiTests: [
+      {
+        id: 'geolocation',
+        name: 'Geolocation',
+        description: 'Test geolocation API',
+        category: 'device',
+        tests: [],
+      },
+      {
+        id: 'device-orientation',
+        name: 'Device Orientation',
+        description: 'Test device orientation API',
+        category: 'device',
+        tests: [],
+      },
+      {
+        id: 'vibration',
+        name: 'Vibration',
+        description: 'Test vibration API',
+        category: 'device',
+        tests: [],
+      },
+    ],
+  },
+  {
+    id: 'media',
+    name: 'Media APIs',
+    description: 'Test camera, audio, and other media APIs',
+    apiTests: [
+      {
+        id: 'camera',
+        name: 'Camera (getUserMedia)',
+        description: 'Test camera access API',
+        category: 'media',
+        tests: [],
+      },
+      {
+        id: 'audio',
+        name: 'Audio',
+        description: 'Test audio API',
+        category: 'media',
+        tests: [],
+      },
+      {
+        id: 'screen-capture',
+        name: 'Screen Capture',
+        description: 'Test screen capture API',
+        category: 'media',
+        tests: [],
+      },
+    ],
+  },
+  {
+    id: 'network',
+    name: 'Network APIs',
+    description: 'Test fetch, WebSocket, and other network APIs',
+    apiTests: [
+      {
+        id: 'fetch',
+        name: 'Fetch API',
+        description: 'Test fetch API functionality',
+        category: 'network',
+        tests: [],
+      },
+      {
+        id: 'websocket',
+        name: 'WebSocket',
+        description: 'Test WebSocket connectivity',
+        category: 'network',
+        tests: [],
+      },
+      {
+        id: 'sse',
+        name: 'Server-Sent Events',
+        description: 'Test Server-Sent Events',
+        category: 'network',
+        tests: [],
+      },
+    ],
+  },
+  {
+    id: 'browser',
+    name: 'Browser APIs',
+    description: 'Test browser-specific APIs like clipboard and notifications',
+    apiTests: [
+      {
+        id: 'clipboard',
+        name: 'Clipboard',
+        description: 'Test clipboard API',
+        category: 'browser',
+        tests: [],
+      },
+      {
+        id: 'notification',
+        name: 'Notification',
+        description: 'Test notification API',
+        category: 'browser',
+        tests: [],
+      },
+      {
+        id: 'fullscreen',
+        name: 'Fullscreen',
+        description: 'Test fullscreen API functionality',
+        category: 'browser',
+        tests: [],
+      },
+      {
+        id: 'page-visibility',
+        name: 'Page Visibility',
+        description: 'Test page visibility API',
+        category: 'browser',
+        tests: [],
+      },
+    ],
+  },
+]
