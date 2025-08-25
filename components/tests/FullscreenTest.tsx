@@ -37,6 +37,21 @@ export default function FullscreenTest() {
       const element = document.fullscreenElement
       setIsFullscreen(!!element)
       setFullscreenElement(element ? element.tagName : null)
+      
+      // フルスクリーン解除時に要素のスタイルをリセット
+      if (!element && elementRef.current) {
+        // 一時的に要素を非表示にしてからリセット
+        const el = elementRef.current
+        el.style.display = 'none'
+        
+        // 次のフレームで元に戻す
+        requestAnimationFrame(() => {
+          el.style.cssText = ''
+          el.style.display = ''
+          // 強制的にレイアウトを再計算
+          el.offsetHeight
+        })
+      }
     }
 
     const handleFullscreenError = (e: Event) => {
@@ -58,6 +73,11 @@ export default function FullscreenTest() {
     return () => {
       document.removeEventListener('fullscreenchange', handleFullscreenChange)
       document.removeEventListener('fullscreenerror', handleFullscreenError)
+      
+      // クリーンアップ時に要素のスタイルをリセット
+      if (elementRef.current) {
+        elementRef.current.style.cssText = ''
+      }
     }
   }, [])
 
@@ -182,6 +202,15 @@ export default function FullscreenTest() {
     }
   }
 
+  const resetElementStyle = () => {
+    if (elementRef.current) {
+      const el = elementRef.current
+      el.style.cssText = ''
+      // 強制的にレイアウトを再計算
+      el.offsetHeight
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -231,13 +260,20 @@ export default function FullscreenTest() {
 
       <Card title="Quick Actions">
         <div className="space-y-4">
-          <div className="flex gap-2">
-            <Button onClick={handleQuickFullscreen} size="sm">
-              {isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen (Document)'}
-            </Button>
-            <Button onClick={handleElementFullscreen} size="sm" variant="secondary">
-              {isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen (Element)'}
-            </Button>
+          <div className="space-y-2">
+            <div className="flex gap-2">
+              <Button onClick={handleQuickFullscreen} size="sm">
+                {isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen (Document)'}
+              </Button>
+              <Button onClick={handleElementFullscreen} size="sm" variant="secondary">
+                {isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen (Element)'}
+              </Button>
+            </div>
+            <div>
+              <Button onClick={resetElementStyle} size="sm" variant="danger">
+                Reset Element Style
+              </Button>
+            </div>
           </div>
 
           <div
