@@ -11,11 +11,17 @@ export default function FullscreenTest() {
   const [fullscreenElement, setFullscreenElement] = useState<string | null>(null)
   const [supportStatus, setSupportStatus] = useState<Record<string, boolean>>({})
   const [lastResult, setLastResult] = useState<TestResult | null>(null)
+  const [fullscreenEnabled, setFullscreenEnabled] = useState<boolean>(false)
+  const [isMounted, setIsMounted] = useState(false)
   const elementRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
+    setIsMounted(true)
+    
     const checkSupport = () => {
+      if (typeof window === 'undefined') return
+      
       setSupportStatus({
         requestFullscreen: 'requestFullscreen' in document.documentElement,
         exitFullscreen: 'exitFullscreen' in document,
@@ -24,6 +30,7 @@ export default function FullscreenTest() {
         fullscreenchange: 'onfullscreenchange' in document,
         fullscreenerror: 'onfullscreenerror' in document,
       })
+      setFullscreenEnabled(document.fullscreenEnabled ?? false)
     }
 
     const handleFullscreenChange = () => {
@@ -201,8 +208,8 @@ export default function FullscreenTest() {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium">Fullscreen Enabled:</span>
-            <span className={`text-sm font-bold ${document.fullscreenEnabled ? 'text-green-600' : 'text-red-600'}`}>
-              {document.fullscreenEnabled ? 'Yes' : 'No'}
+            <span className={`text-sm font-bold ${fullscreenEnabled ? 'text-green-600' : 'text-red-600'}`}>
+              {isMounted ? (fullscreenEnabled ? 'Yes' : 'No') : 'Loading...'}
             </span>
           </div>
         </div>
