@@ -43,7 +43,7 @@ export default function Home() {
           <Navigation categories={filteredCategories} />
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500">No APIs found matching "{searchTerm}"</p>
+            <p className="text-gray-500">No APIs found matching &quot;{searchTerm}&quot;</p>
           </div>
         )}
       </div>

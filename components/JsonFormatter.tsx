@@ -32,7 +32,7 @@ export default function JsonFormatter({ data, maxDepth = 3 }: JsonFormatterProps
     }
 
     if (typeof value === 'string') {
-      return <span className="text-green-600">"{value}"</span>
+      return <span className="text-green-600">&quot;{value}&quot;</span>
     }
 
     if (Array.isArray(value)) {
@@ -71,7 +71,7 @@ export default function JsonFormatter({ data, maxDepth = 3 }: JsonFormatterProps
             <div className="ml-4">
               {entries.map(([key, val], index) => (
                 <div key={key}>
-                  <span className="text-gray-700">"{key}"</span>:{' '}
+                  <span className="text-gray-700">&quot;{key}&quot;</span>:{' '}
                   {formatValue(val, depth + 1)}
                   {index < entries.length - 1 && ','}
                 </div>
