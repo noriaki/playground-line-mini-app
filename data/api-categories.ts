@@ -12,6 +12,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test localStorage functionality',
         category: 'storage',
         tests: [],
+        isImplemented: false,
       },
       {
         id: 'sessionstorage',
@@ -19,6 +20,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test sessionStorage functionality',
         category: 'storage',
         tests: [],
+        isImplemented: false,
       },
       {
         id: 'indexeddb',
@@ -26,6 +28,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test IndexedDB functionality',
         category: 'storage',
         tests: [],
+        isImplemented: false,
       },
     ],
   },
@@ -40,6 +43,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test geolocation API',
         category: 'device',
         tests: [],
+        isImplemented: false,
       },
       {
         id: 'device-orientation',
@@ -47,6 +51,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test device orientation API',
         category: 'device',
         tests: [],
+        isImplemented: false,
       },
       {
         id: 'vibration',
@@ -54,6 +59,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test vibration API',
         category: 'device',
         tests: [],
+        isImplemented: false,
       },
     ],
   },
@@ -68,6 +74,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test camera access API',
         category: 'media',
         tests: [],
+        isImplemented: false,
       },
       {
         id: 'audio',
@@ -75,6 +82,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test audio API',
         category: 'media',
         tests: [],
+        isImplemented: false,
       },
       {
         id: 'screen-capture',
@@ -82,6 +90,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test screen capture API',
         category: 'media',
         tests: [],
+        isImplemented: false,
       },
     ],
   },
@@ -96,6 +105,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test fetch API functionality',
         category: 'network',
         tests: [],
+        isImplemented: false,
       },
       {
         id: 'websocket',
@@ -103,6 +113,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test WebSocket connectivity',
         category: 'network',
         tests: [],
+        isImplemented: false,
       },
       {
         id: 'sse',
@@ -110,6 +121,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test Server-Sent Events',
         category: 'network',
         tests: [],
+        isImplemented: false,
       },
     ],
   },
@@ -124,6 +136,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test clipboard API',
         category: 'browser',
         tests: [],
+        isImplemented: false,
       },
       {
         id: 'notification',
@@ -131,6 +144,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test notification API',
         category: 'browser',
         tests: [],
+        isImplemented: false,
       },
       {
         id: 'fullscreen',
@@ -138,6 +152,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test fullscreen API functionality',
         category: 'browser',
         tests: [],
+        isImplemented: true,
       },
       {
         id: 'page-visibility',
@@ -145,6 +160,7 @@ export const apiCategories: ApiCategory[] = [
         description: 'Test page visibility API',
         category: 'browser',
         tests: [],
+        isImplemented: false,
       },
     ],
   },
