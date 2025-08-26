@@ -22,6 +22,7 @@ export interface ApiTestConfig {
   category: string
   tests: TestCase[]
   documentation?: string
+  isImplemented?: boolean
 }
 
 export interface ApiCategory {

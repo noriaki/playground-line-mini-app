@@ -18,15 +18,25 @@ export default function Navigation({ categories }: NavigationProps) {
           </h2>
           <p className="text-sm text-gray-600 mb-4">{category.description}</p>
           <div className="space-y-2">
-            {category.apiTests.map((test) => (
-              <Link
-                key={test.id}
-                href={`/api-tests/${test.id}`}
-                className="block text-sm text-line-blue hover:text-line-green transition-colors"
-              >
-                → {test.name}
-              </Link>
-            ))}
+            {category.apiTests.map((test) => 
+              test.isImplemented ? (
+                <Link
+                  key={test.id}
+                  href={`/api-tests/${test.id}`}
+                  className="block text-sm text-line-blue hover:text-line-green transition-colors"
+                >
+                  → {test.name}
+                </Link>
+              ) : (
+                <div
+                  key={test.id}
+                  className="block text-sm text-gray-400 cursor-not-allowed"
+                  title="Not implemented yet"
+                >
+                  → {test.name} <span className="text-xs text-gray-400">(Not implemented)</span>
+                </div>
+              )
+            )}
           </div>
         </div>
       ))}
