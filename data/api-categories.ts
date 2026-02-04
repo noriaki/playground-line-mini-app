@@ -110,10 +110,10 @@ export const apiCategories: ApiCategory[] = [
       {
         id: 'websocket',
         name: 'WebSocket',
-        description: 'Test WebSocket connectivity',
+        description: 'Test WebSocket connectivity and real-time messaging',
         category: 'network',
         tests: [],
-        isImplemented: false,
+        isImplemented: true,
       },
       {
         id: 'sse',
